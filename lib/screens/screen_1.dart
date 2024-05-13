@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import '../widgets/CustomSensorBlock.dart';
 
 class Screen1 extends StatefulWidget {
   @override
@@ -83,10 +83,12 @@ class _Screen1State extends State<Screen1> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Temperature', style: TextStyle(fontSize: 17, color: Color.fromRGBO(25, 25, 25, 1))),
-                          Text('21°С', style: TextStyle(fontSize: 18, color: Color.fromRGBO(9, 213, 66, 1))),
+                          Text('21°С', style: TextStyle(fontSize: 18, color: Color.fromRGBO(
+                              26, 125, 54, 1.0))),
                           SizedBox(height: 5),
                           Text('Humidity', style: TextStyle(fontSize: 17, color: Color.fromRGBO(25, 25, 25, 1))),
-                          Text('30 %', style: TextStyle(fontSize: 18, color: Color.fromRGBO(9, 213, 66, 1))),
+                          Text('30 %', style: TextStyle(fontSize: 18, color: Color.fromRGBO(
+                              26, 125, 54, 1.0))),
                         ],
                       ),
                     ),
@@ -152,35 +154,63 @@ class _Screen1State extends State<Screen1> {
                   return AnimatedOpacity(
                     duration: Duration(milliseconds: 300),
                     opacity: _selectedIndex == index ? 1.0 : 0.0,
-                    child: Center(
-                      child: Container(
-                        margin: EdgeInsets.fromLTRB(18, 18, 18, 18),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Center(
-                          child: Text(
-                            _selectedIndex == 0
-                                ? 'Living Room Selected'
-                                : _selectedIndex == 1
-                                ? 'Bedroom Selected'
-                                : _selectedIndex == 2
-                                ? 'Kitchen Selected'
-                                : 'Bathroom Selected',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(0, 18, 0, 18),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: Offset(0, 3),
                           ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            _selectedIndex == 0
+                                ? Wrap(
+                                children: [
+                                  CustomSensorBlock()
+                        ],
+                            )
+                                : _selectedIndex == 1
+                                ? Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                CustomSensorBlock(),
+                                CustomSensorBlock(),
+                              ],
+                            )
+                                : _selectedIndex == 2
+                                ? Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                CustomSensorBlock(),
+                                CustomSensorBlock(),
+                                CustomSensorBlock(),
+                                CustomSensorBlock(),
+                              ],
+                            )
+                                : _selectedIndex == 3
+                                ? Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                CustomSensorBlock(),
+                                CustomSensorBlock(),
+                                CustomSensorBlock(),
+                              ],
+                            )
+                                : Container(),
+                          ],
                         ),
                       ),
                     ),
@@ -188,6 +218,7 @@ class _Screen1State extends State<Screen1> {
                 },
               ),
             ),
+
           ],
         ),
       ),

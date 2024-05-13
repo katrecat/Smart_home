@@ -13,7 +13,7 @@ class _Screen0State extends State<Screen0> {
   void initState() {
     super.initState();
     // Start a Timer that navigates to Screen1 after 5 seconds
-    Timer(Duration(seconds: 1), () {
+    Timer(Duration(seconds: 5), () {
       Navigator.pushReplacementNamed(context, '/screen1');
     });
   }
