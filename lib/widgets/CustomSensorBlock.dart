@@ -1,13 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+enum BlockType { Lightning, Speaker, Fan }
+
 class CustomSensorBlock extends StatefulWidget {
+  final BlockType blockType;
+
+  CustomSensorBlock({required this.blockType});
+
   @override
   _CustomSensorBlockState createState() => _CustomSensorBlockState();
 }
 
 class _CustomSensorBlockState extends State<CustomSensorBlock> {
   bool _isSwitched = false;
+
+  IconData getIconForBlockType(BlockType type) {
+    switch (type) {
+      case BlockType.Lightning:
+        return FontAwesomeIcons.solidLightbulb;
+      case BlockType.Speaker:
+        return Icons.volume_up; //speaker
+      case BlockType.Fan:
+        return FontAwesomeIcons.fan;
+    }
+  }
+
+  String getTextForBlockType(BlockType type) {
+    switch (type) {
+      case BlockType.Lightning:
+        return "Lightning";
+      case BlockType.Speaker:
+        return "Speaker";
+      case BlockType.Fan:
+        return "Cooling";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +61,7 @@ class _CustomSensorBlockState extends State<CustomSensorBlock> {
               ),
               child: Center(
                 child: FaIcon(
-                  FontAwesomeIcons.lightbulb,
+                  getIconForBlockType(widget.blockType),
                   color: Colors.black,
                   size: 25,
                 ),
@@ -44,7 +72,7 @@ class _CustomSensorBlockState extends State<CustomSensorBlock> {
             bottom: 100,
             left: 30,
             child: Text(
-              "Lightning",
+              getTextForBlockType(widget.blockType),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
@@ -59,7 +87,7 @@ class _CustomSensorBlockState extends State<CustomSensorBlock> {
                 Text(
                   _isSwitched ? "On" : "Off",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -75,7 +103,7 @@ class _CustomSensorBlockState extends State<CustomSensorBlock> {
                       });
                     },
                     activeColor: Colors.green,
-                    inactiveTrackColor: Colors.grey, // Kolor tła wyłączonego przełącznika
+                    inactiveTrackColor: Colors.grey,
                   ),
                 ),
               ],

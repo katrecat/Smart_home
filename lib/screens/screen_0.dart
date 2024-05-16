@@ -29,45 +29,6 @@ class _Screen0State extends State<Screen0> {
       child: Stack(
         children: <Widget>[
           Positioned(
-            top: 234.5,
-            left: -47,
-            child: Container(
-              width: 425,
-              height: 578,
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    child: SvgPicture.asset(
-                      'assets/images/vector2.svg',
-                      semanticsLabel: 'vector2',
-                    ),
-                  ),
-                  Positioned(
-                    top: 2.5,
-                    left: 421,
-                    child: Transform.rotate(
-                      angle: -3.14159, // Direct radian value for pi
-                      child: SvgPicture.asset(
-                        'assets/images/vector3.svg',
-                        semanticsLabel: 'vector3',
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 109.5,
-                    left: 45.5,
-                    child: SvgPicture.asset(
-                      'assets/images/vector1.svg',
-                      semanticsLabel: 'vector1',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
             top: 0,
             left: 0,
             child: Container(),

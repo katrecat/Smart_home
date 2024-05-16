@@ -84,11 +84,10 @@ class _Screen1State extends State<Screen1> {
                         children: [
                           Text('Temperature', style: TextStyle(fontSize: 17, color: Color.fromRGBO(25, 25, 25, 1))),
                           Text('21°С', style: TextStyle(fontSize: 18, color: Color.fromRGBO(
-                              26, 125, 54, 1.0))),
+                              0, 125, 0, 1.0), fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
                           Text('Humidity', style: TextStyle(fontSize: 17, color: Color.fromRGBO(25, 25, 25, 1))),
-                          Text('30 %', style: TextStyle(fontSize: 18, color: Color.fromRGBO(
-                              26, 125, 54, 1.0))),
+                          Text('30 %', style: TextStyle(fontSize: 18, color: Color.fromRGBO(0, 125, 0, 1.0), fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
@@ -175,17 +174,17 @@ class _Screen1State extends State<Screen1> {
                           children: [
                             _selectedIndex == 0
                                 ? Wrap(
-                                children: [
-                                  CustomSensorBlock()
-                        ],
+                              children: [
+                                CustomSensorBlock(blockType: BlockType.Speaker)
+                              ],
                             )
                                 : _selectedIndex == 1
                                 ? Wrap(
                               spacing: 10,
                               runSpacing: 10,
                               children: [
-                                CustomSensorBlock(),
-                                CustomSensorBlock(),
+                                CustomSensorBlock(blockType: BlockType.Speaker),
+                                CustomSensorBlock(blockType: BlockType.Fan)
                               ],
                             )
                                 : _selectedIndex == 2
@@ -193,10 +192,10 @@ class _Screen1State extends State<Screen1> {
                               spacing: 10,
                               runSpacing: 10,
                               children: [
-                                CustomSensorBlock(),
-                                CustomSensorBlock(),
-                                CustomSensorBlock(),
-                                CustomSensorBlock(),
+                                CustomSensorBlock(blockType: BlockType.Speaker),
+                                CustomSensorBlock(blockType: BlockType.Fan),
+                                CustomSensorBlock(blockType: BlockType.Lightning),
+                                CustomSensorBlock(blockType: BlockType.Fan),
                               ],
                             )
                                 : _selectedIndex == 3
@@ -204,9 +203,9 @@ class _Screen1State extends State<Screen1> {
                               spacing: 10,
                               runSpacing: 10,
                               children: [
-                                CustomSensorBlock(),
-                                CustomSensorBlock(),
-                                CustomSensorBlock(),
+                                CustomSensorBlock(blockType: BlockType.Speaker),
+                                CustomSensorBlock(blockType: BlockType.Speaker),
+                                CustomSensorBlock(blockType: BlockType.Speaker),
                               ],
                             )
                                 : Container(),
