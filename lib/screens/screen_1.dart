@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mqtt_client/mqtt_client.dart';
+import 'dart:convert';
 import '../widgets/CustomSensorBlock.dart';
 
 class Screen1 extends StatefulWidget {
+  final MqttClient client;
+
+  const Screen1({Key? key, required this.client}) : super(key: key);
+
   @override
   _Screen1State createState() => _Screen1State();
 }
@@ -9,11 +15,44 @@ class Screen1 extends StatefulWidget {
 class _Screen1State extends State<Screen1> {
   late PageController _pageController;
   int _selectedIndex = 0;
+  double value_temperature = 0.0;
+  int value_humidity = 0;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+
+    // Subscribe to the topic and listen for updates
+    widget.client.subscribe('czujniki', MqttQos.atMostOnce);
+    widget.client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+      final recMessage = c![0].payload as MqttPublishMessage;
+      final payload =
+      MqttPublishPayload.bytesToStringAsString(recMessage.payload.message);
+
+      final Map<String, dynamic> message = jsonDecode(payload);
+      if (message['UNIT'] == 'CELSIUS') {
+        final double newValue = message['VALUE'];
+
+        setState(() {
+          value_temperature = newValue;
+        });
+
+        print('Received message: $payload from topic: ${c[0].topic}');
+        print('Temperature Value: $value_temperature');
+      } else if (message['UNIT'] == 'PROCRH') {
+        final int newValue = message['VALUE'];
+
+        setState(() {
+          value_humidity = newValue;
+        });
+
+        print('Received message: $payload from topic: ${c[0].topic}');
+        print('Humidity Value: $value_humidity');
+      } else {
+        print('Received message with different UNIT: $payload');
+      }
+    });
   }
 
   @override
@@ -45,7 +84,7 @@ class _Screen1State extends State<Screen1> {
                   ),
                   SizedBox(width: 20),
                   Text(
-                    'Kasia',
+                    'Home assistant',
                     style: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 1),
                       fontFamily: 'Lexend',
@@ -83,11 +122,10 @@ class _Screen1State extends State<Screen1> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Temperature', style: TextStyle(fontSize: 17, color: Color.fromRGBO(25, 25, 25, 1))),
-                          Text('21°С', style: TextStyle(fontSize: 18, color: Color.fromRGBO(
-                              0, 125, 0, 1.0), fontWeight: FontWeight.bold)),
+                          Text('$value_temperature°С', style: TextStyle(fontSize: 18, color: Color.fromRGBO(0, 125, 0, 1.0), fontWeight: FontWeight.bold)),
                           SizedBox(height: 5),
                           Text('Humidity', style: TextStyle(fontSize: 17, color: Color.fromRGBO(25, 25, 25, 1))),
-                          Text('30 %', style: TextStyle(fontSize: 18, color: Color.fromRGBO(0, 125, 0, 1.0), fontWeight: FontWeight.bold)),
+                          Text('$value_humidity %', style: TextStyle(fontSize: 18, color: Color.fromRGBO(0, 125, 0, 1.0), fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
@@ -217,7 +255,6 @@ class _Screen1State extends State<Screen1> {
                 },
               ),
             ),
-
           ],
         ),
       ),
