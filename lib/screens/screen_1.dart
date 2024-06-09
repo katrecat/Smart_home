@@ -206,14 +206,14 @@ class _Screen1State extends State<Screen1> {
                         ],
                       ),
                       child: Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             _selectedIndex == 0
                                 ? Wrap(
                               children: [
-                                CustomSensorBlock(blockType: BlockType.Speaker)
+                                CustomSensorBlock(blockType: BlockType.Alarm, sensorName: "Living Room Speaker", client: widget.client)
                               ],
                             )
                                 : _selectedIndex == 1
@@ -221,8 +221,8 @@ class _Screen1State extends State<Screen1> {
                               spacing: 10,
                               runSpacing: 10,
                               children: [
-                                CustomSensorBlock(blockType: BlockType.Speaker),
-                                CustomSensorBlock(blockType: BlockType.Fan)
+                                CustomSensorBlock(blockType: BlockType.Alarm, sensorName: "Bedroom Speaker", client: widget.client),
+                                CustomSensorBlock(blockType: BlockType.Fan, sensorName: "Bedroom Fan", client: widget.client)
                               ],
                             )
                                 : _selectedIndex == 2
@@ -230,10 +230,10 @@ class _Screen1State extends State<Screen1> {
                               spacing: 10,
                               runSpacing: 10,
                               children: [
-                                CustomSensorBlock(blockType: BlockType.Speaker),
-                                CustomSensorBlock(blockType: BlockType.Fan),
-                                CustomSensorBlock(blockType: BlockType.Lightning),
-                                CustomSensorBlock(blockType: BlockType.Fan),
+                                CustomSensorBlock(blockType: BlockType.Alarm, sensorName: "Kitchen Speaker", client: widget.client),
+                                CustomSensorBlock(blockType: BlockType.Fan, sensorName: "Kitchen Fan", client: widget.client),
+                                CustomSensorBlock(blockType: BlockType.Lightning, sensorName: "Kitchen Lightning", client: widget.client),
+                                CustomSensorBlock(blockType: BlockType.Fan, sensorName: "Kitchen Fan 2", client: widget.client),
                               ],
                             )
                                 : _selectedIndex == 3
@@ -241,9 +241,9 @@ class _Screen1State extends State<Screen1> {
                               spacing: 10,
                               runSpacing: 10,
                               children: [
-                                CustomSensorBlock(blockType: BlockType.Speaker),
-                                CustomSensorBlock(blockType: BlockType.Speaker),
-                                CustomSensorBlock(blockType: BlockType.Speaker),
+                                CustomSensorBlock(blockType: BlockType.Alarm, sensorName: "Bathroom Speaker 1", client: widget.client),
+                                CustomSensorBlock(blockType: BlockType.Alarm, sensorName: "Bathroom Speaker 2", client: widget.client),
+                                CustomSensorBlock(blockType: BlockType.Alarm, sensorName: "Bathroom Speaker 3", client: widget.client),
                               ],
                             )
                                 : Container(),
